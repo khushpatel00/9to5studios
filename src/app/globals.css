@@ -1,5 +1,10 @@
 @import "tailwindcss";
+@import 'locomotive-scroll/dist/locomotive-scroll.css';
 
 .bricolage-grotesque {
     font-family: "Bricolage Grotesque", sans-serif;
+}
+::-webkit-scrollbar {
+  height: 0px;
+  width: 0px;
 }

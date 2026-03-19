@@ -16,7 +16,7 @@ export default function Menu() {
             duration: 0.25,
             width: 86,
             height: '100vh',
-            x: -3,
+            x: -7,
             autoRound: false,
             borderRadius: 0,
             ease: "circ.out",
@@ -113,9 +113,9 @@ export default function Menu() {
 
 
     return (
-        <>
+        <div className='fixed top-0 left-0 z-50'>
             <div className="h-screen w-24 justify-center items-center relative flex flex-row flex-wrap">
-                <div ref={menuRef} className={'will-change-transform h-[97vh] w-16 my-auto mx-auto flex flex-row'} style={{willChange: 'width, height'}}>
+                <div ref={menuRef} className={'will-change-transform h-[97vh] w-16 my-auto mx-auto flex flex-row'} style={{ willChange: 'width, height' }}>
                     <div
                         onMouseEnter={openMenu}
                         onMouseLeave={closeMenu}
@@ -131,15 +131,32 @@ export default function Menu() {
                                 </div>
                             </div>
                         </div>
-                        <div ref={extendMenuRef} className={'ps-22 h-screen w-[30vw] absolute hidden top-0 left-0 bg-black'} style={{willChange: 'width, height'}}>
-                            <div className='w-full h-full relative'>
-                                <Logo className=' absolute top-0 translate-y-[3vh] w-full h-full duration-500 flex justify-center ' size={64} color='#fff' />
+                        <div ref={extendMenuRef} className={'ps-22 h-screen w-[30vw] absolute hidden flex-row flex-wrap top-0 left-0 bg-black'} style={{ willChange: 'width, height' }}>
+                            <div className='w-full relative h-84'>
+                                <Logo className=' absolute top-0 translate-y-[3vh] w-full h-full duration-500 flex justify-center ' size={84} color='#fff' />
+                            </div>
+                            <div className='text-white w-full'>
+                                {[['Navigation', ['Work', 'About', 'Services']], ['Follow', ['Instagram', 'LinkedIn']], ['Info', ['Nine To Five Studio']]].map((list, id) => {
+                                    return (
+                                        <div key={id} className='w-84 mx-auto flex flex-col'>
+                                            <span className='w-full h-[0.5px] flex bg-zinc-500 my-5'></span>
+                                            <div className='w-full flex flex-row flex-wrap justify-between'>
+                                                <h3 className='font-light'>{list[0]}</h3>
+                                                <ul>
+                                                    {list[1].map((innerList, id) => {
+                                                        return <li className={`font-black text-3xl uppercase text-end text-wrap  ${list[0] === 'Info' && ' w-3/4 ms-auto translate-x-1/9'}`} key={id}>{innerList}</li>
+                                                    })}
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    )
+                                })}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
 
     )
 }

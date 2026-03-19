@@ -1,7 +1,7 @@
 export default function Logo({ size = 32, className, color = '#000' }) {
     return (
 
-        <div className={'block p-1 ' + className}>
+        <div className={' ' + className}>
             <svg xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 426 425"
