@@ -46,14 +46,14 @@ export default function Menu() {
         tl = gsap.timeline();
         if (menuText == 'Menu ') {
             tl.set(extendMenuRef.current, { display: 'flex' })
-            tl.from('g', {
+            tl.from('.menuLogo g', {
                 duration: 1.5,
                 autoRound: false,
                 force3D: true,
                 y: '500%',
                 opacity: 0,
-                stagger: 0.1,
-                ease: 'circ.out'
+                stagger: 0.05,
+                ease: 'power4.out'
             }, 'sync')
             tl.fromTo(extendMenuRef.current, {
                 autoRound: false,
@@ -70,6 +70,25 @@ export default function Menu() {
                 x: 100,
                 autoRound: false,
                 duration: 0.2,
+            }, 'sync')
+            tl.fromTo('.textlinks .line', {
+                scaleX: 0,
+                autoRound: false,
+                ease: 'circ.out',
+            }, {
+                delay: 0.2,
+                duration: 1,
+                scaleX: 1,
+            }, 'sync')
+            tl.fromTo('.textlinks .textcontent', {
+                y: 100,
+                autoRound: false,
+                duration: 1,
+                // delay: 0.2,
+                stagger: 0.05,
+                ease: 'circ.out',
+            }, {
+                y: 0
             }, 'sync')
 
             setTimeout(() => {
@@ -94,6 +113,7 @@ export default function Menu() {
             }, 'sync')
             tl.to(extendMenuRef.current, {
                 autoRound: false,
+                delay: 0.5,
                 width: '0px',
                 height: '97vh',
                 duration: 1,
@@ -101,11 +121,26 @@ export default function Menu() {
                 force3D: true,
                 ease: 'expo',
             }, 'sync')
+            tl.to('.textlinks .line', {
+                scaleX: 0,
+                autoRound: false,
+                duration: 1,
+                // delay: 0.2,
+                ease: 'circ.out',
+            }, 'sync')
+            tl.to('.textlinks .textcontent', {
+                y: 100,
+                autoRound: false,
+                duration: 1,
+                // delay: 0.2,
+                stagger: 0.05,
+                ease: 'circ.out',
+            }, 'sync')
             setShouldClose(true);
             closeMenu();
             setTimeout(() => {
                 gsap.set(extendMenuRef.current, { display: 'none' })
-            }, 1000)
+            }, 1500)
 
         }
     }
@@ -132,19 +167,19 @@ export default function Menu() {
                             </div>
                         </div>
                         <div ref={extendMenuRef} className={'ps-22 h-screen w-[30vw] absolute hidden flex-row flex-wrap top-0 left-0 bg-black'} style={{ willChange: 'width, height' }}>
-                            <div className='w-full relative h-84'>
-                                <Logo className=' absolute top-0 translate-y-[3vh] w-full h-full duration-500 flex justify-center ' size={84} color='#fff' />
+                            <div className='w-full relative h-84 menuLogo'>
+                                <Logo className=' absolute top-0 translate-y-[3vh] w-full h-full duration-500 flex justify-center' size={84} color='#fff' />
                             </div>
-                            <div className='text-white w-full'>
+                            <div className='text-white w-full textlinks'>
                                 {[['Navigation', ['Work', 'About', 'Services']], ['Follow', ['Instagram', 'LinkedIn']], ['Info', ['Nine To Five Studio']]].map((list, id) => {
                                     return (
                                         <div key={id} className='w-84 mx-auto flex flex-col'>
-                                            <span className='w-full h-[0.5px] flex bg-zinc-500 my-5'></span>
+                                            <div className='w-full line h-[0.5px] flex bg-zinc-500 my-5 me-auto' style={{transformOrigin: '0% 0%'}}></div>
                                             <div className='w-full flex flex-row flex-wrap justify-between'>
-                                                <h3 className='font-light'>{list[0]}</h3>
+                                                <div className='overflow-hidden h-fit'><h3 className='font-light textcontent overflow-hidden'>{list[0]}</h3></div>
                                                 <ul>
                                                     {list[1].map((innerList, id) => {
-                                                        return <li className={`font-black text-3xl uppercase text-end text-wrap  ${list[0] === 'Info' && ' w-3/4 ms-auto translate-x-1/9'}`} key={id}>{innerList}</li>
+                                                        return <div key={id} className={`overflow-hidden ${list[0] === 'Info' && ' w-3/4 ms-auto translate-x-1/9'} `}><li className={`font-black text-3xl uppercase text-end text-wrap textcontent overflow-hidden  `} >{innerList}</li></div>
                                                     })}
                                                 </ul>
                                             </div>
