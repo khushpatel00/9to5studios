@@ -22,12 +22,13 @@ export function Providers({ children }) {
                     const tween = gsap.fromTo('.pagetransition', {
                         y: '0',
                     }, {
-                        y: '-100%',
+                        y: '100%',
                         stagger: '-0.2',
                         duration: 1,
                         ease: 'expo.inOut',
                         onComplete: next,
-                    }, 'sync')
+                    })
+                    gsap.set('.pagetransition', { y: '-100%' })
                     return () => tween.kill();
                 }}
             >
