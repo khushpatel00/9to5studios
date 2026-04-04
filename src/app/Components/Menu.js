@@ -148,50 +148,55 @@ export default function Menu() {
 
 
     return (
-        <div className='fixed top-0 left-0 z-50'>
-            <div className="h-screen w-24 justify-center items-center relative flex flex-row flex-wrap">
-                <div ref={menuRef} className={'will-change-transform h-[97vh] w-16 my-auto mx-auto flex flex-row'} style={{ willChange: 'width, height' }}>
-                    <div
-                        onMouseEnter={openMenu}
-                        onMouseLeave={closeMenu}
-                        onClick={toggleMenu}
-                        className={'w-full h-full bg-black cursor-pointer flex flex-row flex-wrap'}
-                    >
-                        <div className={'h-screen w-full z-20'}>
-                            <div ref={textRef} className='antialiased will-change-transform absolute duration-100 top-0 left-1/2 -translate-x-1/2 text-white rotate-270 text-lg bricolage-grotesque font-semibold translate-y-[50px]'>
-                                <div className='overflow-hidden flex flex-row flex-nowrap '>
-                                    {menuText.split('').map((char, i) => {
-                                        return <p className='text-animate' key={i}>{char}</p>
-                                    })}
+        <>
+            <div className='pagetransition -translate-y-full w-screen h-screen absolute top-0 bg-amber-400 left-0 z-50'></div>
+            <div className='pagetransition -translate-y-full w-screen h-screen absolute top-0 bg-black left-0 z-50'></div>
+            <div className='fixed top-0 left-0 z-50'>
+                <div className="h-screen w-24 justify-center items-center relative flex flex-row flex-wrap">
+                    <div ref={menuRef} className={'will-change-transform h-[97vh] w-16 my-auto mx-auto flex flex-row'} style={{ willChange: 'width, height' }}>
+                        <div
+                            onMouseEnter={openMenu}
+                            onMouseLeave={closeMenu}
+                            onClick={toggleMenu}
+                            className={'w-full h-full bg-black cursor-pointer flex flex-row flex-wrap'}
+                        >
+                            <div className={'h-screen w-full z-20'}>
+                                <div ref={textRef} className='antialiased will-change-transform absolute duration-100 top-0 left-1/2 -translate-x-1/2 text-white rotate-270 text-lg bricolage-grotesque font-semibold translate-y-12.5'>
+                                    <div className='overflow-hidden flex flex-row flex-nowrap '>
+                                        {menuText.split('').map((char, i) => {
+                                            return <p className='text-animate' key={i}>{char}</p>
+                                        })}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div ref={extendMenuRef} className={'ps-22 h-screen w-[30vw] absolute hidden flex-row flex-wrap top-0 left-0 bg-black'} style={{ willChange: 'width, height' }}>
-                            <div className='w-full relative h-84 menuLogo'>
-                                <Logo className=' absolute top-0 translate-y-[3vh] w-full h-full duration-500 flex justify-center' size={84} color='#fff' />
-                            </div>
-                            <div className='text-white w-full textlinks'>
-                                {[['Navigation', ['Work', 'About', 'Services']], ['Follow', ['Instagram', 'LinkedIn']], ['Info', ['Nine To Five Studio']]].map((list, id) => {
-                                    return (
-                                        <div key={id} className='w-84 mx-auto flex flex-col'>
-                                            <div className='w-full line h-[0.5px] flex bg-zinc-500 my-5 me-auto' style={{transformOrigin: '0% 0%'}}></div>
-                                            <div className='w-full flex flex-row flex-wrap justify-between'>
-                                                <div className='overflow-hidden h-fit'><h3 className='font-light textcontent overflow-hidden'>{list[0]}</h3></div>
-                                                <ul>
-                                                    {list[1].map((innerList, id) => {
-                                                        return <div key={id} className={`overflow-hidden ${list[0] === 'Info' && ' w-3/4 ms-auto translate-x-1/9'} `}><li className={`font-black text-3xl uppercase text-end text-wrap textcontent overflow-hidden  `} >{innerList}</li></div>
-                                                    })}
-                                                </ul>
+                            <div ref={extendMenuRef} className={'ps-22 h-screen w-[30vw] absolute hidden flex-row flex-wrap top-0 left-0 bg-black'} style={{ willChange: 'width, height' }}>
+                                <div className='w-full relative h-84 menuLogo'>
+                                    <Logo className=' absolute top-0 translate-y-[3vh] w-full h-full duration-500 flex justify-center' size={84} color='#fff' />
+                                </div>
+                                <div className='text-white w-full textlinks'>
+                                    {[['Navigation', ['Work', 'About', 'Services']], ['Follow', ['Instagram', 'LinkedIn']], ['Info', ['Nine To Five Studio']]].map((list, id) => {
+                                        return (
+                                            <div key={id} className='w-84 mx-auto flex flex-col'>
+                                                <div className='w-full line h-[0.5px] flex bg-zinc-500 my-5 me-auto' style={{ transformOrigin: '0% 0%' }}></div>
+                                                <div className='w-full flex flex-row flex-wrap justify-between'>
+                                                    <div className='overflow-hidden h-fit'><h3 className='font-light textcontent overflow-hidden'>{list[0]}</h3></div>
+                                                    <ul>
+                                                        {list[1].map((innerList, id) => {
+                                                            return <div key={id} className={`overflow-hidden ${list[0] === 'Info' && ' w-3/4 ms-auto translate-x-1/9'} `}><li className={`font-black text-3xl uppercase text-end text-wrap textcontent overflow-hidden  `} >{innerList}</li></div>
+                                                        })}
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
-                                    )
-                                })}
+                                        )
+                                    })}
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </>
+
 
     )
 }
