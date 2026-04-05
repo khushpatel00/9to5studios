@@ -10,23 +10,23 @@ export default function Landing() {
 
     useEffect(() => {
 
-        let tween;
-        // import("locomotive-scroll").then((locomotiveModule) => {
-        //     scroll = new locomotiveModule.default({
-        //         el: document.querySelector("[data-scroll-container]"),
-        //         smooth: true,
-        //         smoothMobile: false,
-        //         resetNativeScroll: true,
-        //         direction: 'horizontal',
-        //     });
-        // });
-
-        const locomotive = new LocomotiveScroll({
-            el: document.querySelector('[data-scroll-container]'),
-            smooth: true,
-            direction: "horizontal",
-            lerp: 0.05
+        let tween, locomotive;
+        import("locomotive-scroll").then((locomotiveModule) => {
+            locomotive = new locomotiveModule.default({
+                el: document.querySelector("[data-scroll-container]"),
+                smooth: true,
+                smoothMobile: false,
+                resetNativeScroll: true,
+                direction: 'horizontal',
+            });
         });
+
+        // const locomotive = new LocomotiveScroll({
+        //     el: document.querySelector('[data-scroll-container]'),
+        //     smooth: true,
+        //     direction: "horizontal",
+        //     lerp: 0.05
+        // });
         gsap.registerPlugin(ScrollTrigger)
 
         tween = gsap.fromTo('#landing g', {
@@ -40,6 +40,11 @@ export default function Landing() {
             ease: 'expo.out',
             y: 0,
         })
+        window.scrollTo({
+            top: 500,
+            left: 0,
+            behavior: 'smooth'
+        });
         let scroller = gsap.to('#landing #scroller', {
             transform: 'translateX(-100%)',
             scrollTrigger: {
@@ -52,11 +57,23 @@ export default function Landing() {
                 pin: true,
             }
         })
+        let imageScroller = gsap.to('.image-scroller', {
+            transform: 'translateX(5vw)',
+            autoRound: false, 
+            scrollTrigger: {
+                triiger: '.image-scroller-container',
+                scroller: 'body',
+                start: 'top 0%',
+                end: 'top -100%',
+                scrub: 1,
+            }
+        })
         return () => {
-            // locomotive.destroy()
-            if (locomotive) locomotive.destroy();
-            if(tween) tween.kill();
+            // locomotive.destroy();
+            if (tween) tween.kill();
             if (scroller) scroller.kill();
+            if (imageScroller) imageScroller.kill();
+            if (locomotive) locomotive.destroy();
         }
 
     }, [])
@@ -65,7 +82,7 @@ export default function Landing() {
 
     return (
         <section id="landing" className='w-screen' style={{ height: `100vw` }} data-scroll data-horizontal="true" data-scroll-container>
-            <div id='scroller' className='w-full m-0 mt-[0.75vh] h-[97vh] ps-32 flex flex-row flex-nowrap'>
+            <div id='scroller' data-scroll data-horizontal="true" className='w-full m-0 mt-[0.75vh] h-[97vh] ps-32 flex flex-row flex-nowrap'>
                 <div className='w-72 h-full flex flex-col flex-nowrap justify-between  aspect-square me-15'>
                     <Logo size={72} className='' />
                     <p className='pb-[1.5vh] text-sm antialiased'>
@@ -79,9 +96,13 @@ export default function Landing() {
                         9to5.
                     </p>
                 </div>
-                <div data-scroll-section data-scroll-speed='0.5' className='w-fit h-[97vh] my-auto flex flex-col flex-wrap'>
-                    <img src="/landing_1_banner.webp" className='h-full w-auto' />
-                    <img src="/landing_2.webp" className='h-full w-auto' />
+                <div className='w-fit h-[97vh] my-auto flex flex-col flex-wrap gap-10 image-scroller-container'>
+                    <div className='h-full w-auto overflow-hidden image-scroller-parent'>
+                        <img src="/landing_1_banner.webp" className='h-full image-scroller object-cover' />
+                    </div>
+                    <div className='h-full w-auto overflow-hidden image-scroller-parent'>
+                        <img src="/landing_2.webp" className='h-full image-scroller w-auto object-right' />
+                    </div>
                 </div>
             </div>
         </section>
